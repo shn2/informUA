@@ -7,27 +7,34 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.informua.informua.MainActivity">
+    tools:context="com.informua.informua.MainActivity"
+    android:padding="0dp">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
-        android:id="@+id/linearLayout">
+        android:id="@+id/linearLayout"
+        android:layout_margin="0dp">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/linearLayout"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="5px"
+            android:paddingRight="5px"
+            android:paddingBottom="50px"
+            android:paddingTop="50px">
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/TextoNuevoPost"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:hint="Escribir un nuevo post" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -40,7 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/listaPosts"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorfondolista" />
     </LinearLayout>
 
 </RelativeLayout>

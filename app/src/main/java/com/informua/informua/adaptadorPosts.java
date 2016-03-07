@@ -37,7 +37,6 @@ public class adaptadorPosts extends BaseAdapter{
         try {
             return resultado.get(position);
         } catch (JSONException e) {
-            System.out.println("EEeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeerrrorrrr!");
         }
         return null;
     }

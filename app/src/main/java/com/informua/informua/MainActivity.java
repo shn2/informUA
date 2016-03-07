@@ -32,43 +32,19 @@ public class MainActivity extends AppCompatActivity {
         texto=(EditText) findViewById(R.id.TextoNuevoPost);
         enviarpost=(Button) findViewById(R.id.EnviarPost);
         enviarpost.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-                RequestParams params = new RequestParams();
-                params.put("texto", texto.getText());
-                params.put("categoria", "1");
-                client.post("http://vps222360.ovh.net/posts/CrearPost.php", params, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                        // called when response HTTP status is "200 OK"
-                        client = new AsyncHttpClient();
-                        client.get("http://vps222360.ovh.net/posts/VerPosts.php", null, new JsonHttpResponseHandler() {
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, JSONArray result) {
-                                System.out.println(result.toString());
-                                adaptadorPosts adapter = new adaptadorPosts(actividad, result);
-                                listaPosts.setAdapter(adapter);
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-                    }
-                });
+                crearPost();
             }
         });
+        obtenerPosts();
+    }
 
 
-
-
-        client = new AsyncHttpClient();
+    private void obtenerPosts(){
         client.get("http://vps222360.ovh.net/posts/VerPosts.php", null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray result) {
-                System.out.println(result.toString());
                 adaptadorPosts adapter = new adaptadorPosts(actividad, result);
                 listaPosts.setAdapter(adapter);
             }
@@ -76,6 +52,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
+    private void crearPost(){
+        RequestParams params = new RequestParams();
+        params.put("texto", texto.getText());
+        params.put("categoria", "1");
+        client.post("http://vps222360.ovh.net/posts/CrearPost.php", params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                texto.setText("");
+                obtenerPosts();
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            }
+        });
+    }
 }
