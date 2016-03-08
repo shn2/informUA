@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     JSONArray resultado;
     ListView listaPosts;
     Activity actividad;
-    AsyncHttpClient client;
     EditText texto;
     Button enviarpost;
     @Override
@@ -42,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void obtenerPosts(){
+        AsyncHttpClient client =new AsyncHttpClient();
         client.get("http://vps222360.ovh.net/posts/VerPosts.php", null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray result) {
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         RequestParams params = new RequestParams();
         params.put("texto", texto.getText());
         params.put("categoria", "1");
+        AsyncHttpClient client =new AsyncHttpClient();
         client.post("http://vps222360.ovh.net/posts/CrearPost.php", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {

@@ -48,7 +48,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/listaPosts"
             android:layout_gravity="center_horizontal"
-            android:background="@color/colorfondolista" />
+            android:background="@color/colorfondolista"
+            android:divider="@color/colorfondolista"
+            android:dividerHeight="0dp"
+            />
     </LinearLayout>
 
 </RelativeLayout>
