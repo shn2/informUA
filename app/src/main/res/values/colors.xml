@@ -6,4 +6,6 @@
     <color name="otrocolor">#4f89b1</color>
     <color name="colorfondolista">#eaeaea</color>
 
+    <color name="black_overlay">#66000000</color>
+
 </resources>

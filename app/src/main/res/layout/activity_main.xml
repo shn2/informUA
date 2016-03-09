@@ -8,7 +8,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.informua.informua.MainActivity"
-    android:padding="0dp">
+    android:padding="0dp"
+    >
 
     <LinearLayout
         android:orientation="vertical"

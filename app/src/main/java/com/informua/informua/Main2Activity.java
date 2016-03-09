@@ -9,12 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.content.Intent;
+import android.view.Window;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -26,7 +24,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
-public class Main2Activity extends AppCompatActivity {
+public class Main2Activity extends Activity {
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     private Activity view;
@@ -38,6 +36,11 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton)findViewById(R.id.login_button);
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        /////      Sacar claves hash que hay que incluir en face         ///////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
                     "com.informua.informua",
@@ -52,31 +55,54 @@ public class Main2Activity extends AppCompatActivity {
         } catch (NoSuchAlgorithmException e) {
 
         }
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        //Si ya está loggeado en face va a a la actividad 2 directamente
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        if(AccessToken.getCurrentAccessToken()!=null){
+            Intent intent = new Intent(view, MainActivity.class);
+            startActivity(intent);
+        }
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /////     Cuando se le de al botón de login de facebook        ///////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeo");
+                //Se deberia hacer una llamada a la api guardando el token que da face y desde el servidor hacer cosas con php
+
+                //Abrir Main activity
                 Intent intent = new Intent(view, MainActivity.class);
                 startActivity(intent);
+                /////////////////////////////
+
             }
 
             @Override
             public void onCancel() {
 
             }
-
             @Override
             public void onError(FacebookException e) {
                 System.out.println("maaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaal");
-
             }
         });
     }
 
+
+
+    //Se supone que esto se ejecuta cuando volvamos a esta actividad
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
 
 
 
