@@ -2,8 +2,8 @@
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:padding="5dip"
-    android:layout_marginBottom="5dp"
-   >
+    android:background="@color/colorfondolista"
+    android:layout_marginBottom="5dp">
 
     <LinearLayout
         android:orientation="vertical"
@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:padding="20dip"
         android:background="@drawable/tarjeta"
-       >
+        android:longClickable="true">
 
         <LinearLayout
             android:orientation="horizontal"

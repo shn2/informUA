@@ -29,47 +29,63 @@ public class adaptadorPosts extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return resultado.length();
+        return resultado.length()+1;
     }
 
     @Override
     public Object getItem(int position) {
+        if(position>0){
+
+
         try {
             return resultado.get(position);
-        } catch (JSONException e) {
+            } catch (JSONException e) {
+            }
+        }else {
+            try {
+                return resultado.get(0);
+            } catch (JSONException e) {
+            }
         }
         return null;
     }
 
     @Override
     public long getItemId(int position) {
-        try {
+        if(position>0){  try {
             return  resultado.get(position).hashCode();
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }}
         return 0;
     }
 
     public View getView(int position,View view,ViewGroup parent) {
-        LayoutInflater inflater=context.getLayoutInflater();
-        View rowView=inflater.inflate(R.layout.posts, null, true);
+        if(position>0) {
+            LayoutInflater inflater = context.getLayoutInflater();
+            View rowView = inflater.inflate(R.layout.posts, null, true);
 
-        TextView fecha = (TextView) rowView.findViewById(R.id.fecha);
-        TextView texto = (TextView) rowView.findViewById(R.id.texto);
-        TextView megusta = (TextView) rowView.findViewById(R.id.megustas);
-        TextView categoria = (TextView) rowView.findViewById(R.id.categoria);
-        try {
-            JSONObject json_data = resultado.getJSONObject(position);
-            fecha.setText(  json_data.getString("fecha"));
-            texto.setText(  json_data.getString("texto"));
-            megusta.setText(  json_data.getString("like"));
-            categoria.setText(  json_data.getString("id_categoria"));
+            TextView fecha = (TextView) rowView.findViewById(R.id.fecha);
+            TextView texto = (TextView) rowView.findViewById(R.id.texto);
+            TextView megusta = (TextView) rowView.findViewById(R.id.megustas);
+            TextView categoria = (TextView) rowView.findViewById(R.id.categoria);
+            try {
+                JSONObject json_data = resultado.getJSONObject(position);
+                fecha.setText(json_data.getString("fecha"));
+                texto.setText(json_data.getString("texto"));
+                megusta.setText(json_data.getString("like"));
+                categoria.setText(json_data.getString("id_categoria"));
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return rowView;
+        }else{
+            LayoutInflater inflater = context.getLayoutInflater();
+            View rowView = inflater.inflate(R.layout.cabecera_posts, null, true);
+
+
+            return rowView;
         }
-        return rowView;
-
     };
 }
