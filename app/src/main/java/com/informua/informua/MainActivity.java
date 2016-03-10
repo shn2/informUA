@@ -28,14 +28,14 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         listaPosts=(ListView)findViewById(R.id.listaPosts);
         actividad=this;
-     /*   texto=(EditText) findViewById(R.id.TextoNuevoPost);
+        texto=(EditText) findViewById(R.id.TextoNuevoPost);
         enviarpost=(Button) findViewById(R.id.EnviarPost);
         enviarpost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 crearPost();
             }
-        });*/
+        });
         obtenerPosts();
 
     }

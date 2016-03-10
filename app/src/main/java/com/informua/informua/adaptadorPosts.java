@@ -29,7 +29,7 @@ public class adaptadorPosts extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return resultado.length()+1;
+        return resultado.length();
     }
 
     @Override
@@ -61,7 +61,6 @@ public class adaptadorPosts extends BaseAdapter{
     }
 
     public View getView(int position,View view,ViewGroup parent) {
-        if(position>0) {
             LayoutInflater inflater = context.getLayoutInflater();
             View rowView = inflater.inflate(R.layout.posts, null, true);
 
@@ -80,12 +79,6 @@ public class adaptadorPosts extends BaseAdapter{
                 e.printStackTrace();
             }
             return rowView;
-        }else{
-            LayoutInflater inflater = context.getLayoutInflater();
-            View rowView = inflater.inflate(R.layout.cabecera_posts, null, true);
 
-
-            return rowView;
-        }
     };
 }
