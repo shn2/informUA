@@ -5,7 +5,10 @@ package com.informua.informua;
  */
 
 import android.app.Activity;
-        import android.view.LayoutInflater;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.ArrayAdapter;
@@ -67,13 +70,27 @@ public class adaptadorPosts extends BaseAdapter{
             TextView fecha = (TextView) rowView.findViewById(R.id.fecha);
             TextView texto = (TextView) rowView.findViewById(R.id.texto);
             TextView megusta = (TextView) rowView.findViewById(R.id.megustas);
-            TextView categoria = (TextView) rowView.findViewById(R.id.categoria);
+            ImageView categoria_img=(ImageView) rowView.findViewById(R.id.icono_categoria);
+           // TextView categoria = (TextView) rowView.findViewById(R.id.categoria);
             try {
                 JSONObject json_data = resultado.getJSONObject(position);
-                fecha.setText(json_data.getString("fecha"));
+                fecha.setText(json_data.getString("fecha").split(" ")[0]);
                 texto.setText(json_data.getString("texto"));
                 megusta.setText(json_data.getString("like"));
-                categoria.setText(json_data.getString("id_categoria"));
+                String categoria=json_data.getString("id_categoria");
+                System.out.println(categoria);
+                if(categoria.equals("1")){
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.ball));
+                    System.out.println("holaaaaaaaaaaa");
+                }
+                if(categoria.equals("2"))
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.book));
+                if(categoria.equals("3"))
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.party));
+                if(categoria.equals("4"))
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.game));
+                if(categoria.equals("5"))
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.music));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -81,4 +98,6 @@ public class adaptadorPosts extends BaseAdapter{
             return rowView;
 
     };
+
+
 }

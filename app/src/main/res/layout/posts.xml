@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_height="wrap_content"
     android:padding="5dip"
     android:background="@color/colorfondolista"
     android:layout_marginBottom="5dp">
@@ -11,22 +11,20 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:padding="20dip"
+        android:padding="10dp"
         android:background="@drawable/tarjeta"
         android:longClickable="true">
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:layout_marginBottom="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Medium Text"
-                android:id="@+id/categoria" />
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="0dp"
+                android:id="@+id/icono_categoria"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -34,23 +32,43 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Small Text"
                 android:id="@+id/fecha"
-                android:layout_marginLeft="30px"
-                android:layout_gravity="bottom" />
-
-        </LinearLayout>
+                android:layout_marginLeft="10px"
+                android:gravity="right"
+                android:layout_gravity="right|center_vertical" />
+        </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Text"
-            android:id="@+id/texto" />
+            android:id="@+id/texto"
+            android:textSize="15dp"
+            android:layout_marginLeft="5dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
-            android:id="@+id/megustas" />
+            android:layout_marginTop="15dp"
+            android:gravity="fill_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/megustas"
+                android:layout_marginLeft="5dp" />
+
+            <ImageView
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:id="@+id/imageView2"
+                android:src="@drawable/heart"
+                android:layout_marginTop="0dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp" />
+        </LinearLayout>
 
     </LinearLayout>
 </RelativeLayout>
