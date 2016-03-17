@@ -29,6 +29,7 @@ public class MainActivity extends Activity {
         listaPosts=(ListView)findViewById(R.id.listaPosts);
         actividad=this;
         texto=(EditText) findViewById(R.id.TextoNuevoPost);
+        texto.clearFocus();
         enviarpost=(Button) findViewById(R.id.EnviarPost);
         enviarpost.setOnClickListener(new View.OnClickListener() {
             @Override
