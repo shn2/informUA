@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.informua.informua.MainActivity"
+    tools:context="com.informua.informua.MenuLateral"
     android:padding="0dp"
     android:background="#4052b5">
 
