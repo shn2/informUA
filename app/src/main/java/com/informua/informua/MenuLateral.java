@@ -52,7 +52,7 @@ public class MenuLateral extends AppCompatActivity
                 crearPost();
             }
         });
-        obtenerPosts();
+        obtenerPosts("all");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -64,9 +64,9 @@ public class MenuLateral extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void obtenerPosts(){
+    private void obtenerPosts(String algo){
         AsyncHttpClient client =new AsyncHttpClient();
-        client.get("http://vps222360.ovh.net/posts/VerPosts.php", null, new JsonHttpResponseHandler() {
+        client.get("http://vps222360.ovh.net/posts/VerPosts.php?category="+algo, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray result) {
                 adaptadorPosts adapter = new adaptadorPosts(actividad, result);
@@ -85,7 +85,7 @@ public class MenuLateral extends AppCompatActivity
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 texto.setText("");
-                obtenerPosts();
+                obtenerPosts("all");
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
@@ -131,18 +131,22 @@ public class MenuLateral extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_all) {
+            obtenerPosts("all");
+        } else if (id == R.id.nav_sports) {
+            obtenerPosts("sports");
+        } else if (id == R.id.nav_love) {
+            obtenerPosts("love");
+        } else if (id == R.id.nav_party) {
+            obtenerPosts("party");
+        } else if (id == R.id.nav_study) {
+            obtenerPosts("study");
+        } else if (id == R.id.nav_music) {
+            obtenerPosts("music");
+        } else if (id == R.id.nav_games) {
+            obtenerPosts("games");
+        } else if (id == R.id.nav_others) {
+            obtenerPosts("others");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

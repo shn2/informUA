@@ -80,18 +80,21 @@ public class adaptadorPosts extends BaseAdapter{
                 String categoria=json_data.getString("id_categoria");
                 System.out.println(categoria);
                 if(categoria.equals("1")){
-                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.ball));
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.heart));
                     System.out.println("holaaaaaaaaaaa");
                 }
                 if(categoria.equals("2"))
-                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.book));
-                if(categoria.equals("3"))
-                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.party));
-                if(categoria.equals("4"))
-                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.game));
-                if(categoria.equals("5"))
                     categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.music));
-
+                if(categoria.equals("3"))
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.com_facebook_tooltip_black_bottomnub));
+                if(categoria.equals("4"))
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.ball));
+                if(categoria.equals("5"))
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.game));
+                if(categoria.equals("6"))
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.party));
+                if(categoria.equals("7"))
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.book));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
