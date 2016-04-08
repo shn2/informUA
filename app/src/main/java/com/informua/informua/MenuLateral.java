@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -33,15 +34,19 @@ public class MenuLateral extends AppCompatActivity
     Activity actividad;
     EditText texto;
     Button enviarpost;
+    RelativeLayout modal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_lateral);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         listaPosts=(ListView)findViewById(R.id.listaPosts);
+        modal = (RelativeLayout) findViewById(R.id.Modal);
         actividad=this;
         texto=(EditText) findViewById(R.id.TextoNuevoPost);
         texto.clearFocus();
@@ -49,7 +54,8 @@ public class MenuLateral extends AppCompatActivity
         enviarpost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                crearPost();
+                modal.setVisibility(View.VISIBLE);
+                //crearPost();
             }
         });
         obtenerPosts("all");
@@ -76,11 +82,12 @@ public class MenuLateral extends AppCompatActivity
     }
 
 
-    private void crearPost(){
+    public void crearPost(View v){
         RequestParams params = new RequestParams();
         params.put("texto", texto.getText());
-        params.put("categoria", "1");
+        params.put("categoria", v.getTag());
         AsyncHttpClient client =new AsyncHttpClient();
+        modal.setVisibility(View.GONE);
         client.post("http://vps222360.ovh.net/posts/CrearPost.php", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
@@ -91,6 +98,10 @@ public class MenuLateral extends AppCompatActivity
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
             }
         });
+    }
+
+    public void quitarModal(View v){
+        modal.setVisibility(View.GONE);
     }
 
     @Override
