@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
         import android.view.ViewGroup;
         import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
         import android.widget.TextView;
 
@@ -71,6 +72,8 @@ public class adaptadorPosts extends BaseAdapter{
             TextView texto = (TextView) rowView.findViewById(R.id.texto);
             TextView megusta = (TextView) rowView.findViewById(R.id.megustas);
             ImageView categoria_img=(ImageView) rowView.findViewById(R.id.icono_categoria);
+            ImageButton botonLike=(ImageButton)rowView.findViewById(R.id.botonLike);
+
            // TextView categoria = (TextView) rowView.findViewById(R.id.categoria);
             try {
                 JSONObject json_data = resultado.getJSONObject(position);
@@ -78,6 +81,7 @@ public class adaptadorPosts extends BaseAdapter{
                 texto.setText(json_data.getString("texto"));
                 megusta.setText(json_data.getString("like"));
                 String categoria=json_data.getString("id_categoria");
+                botonLike.setTag(json_data.getString("id"));
                 System.out.println(categoria);
                 if(categoria.equals("1")){
                     categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.heart));

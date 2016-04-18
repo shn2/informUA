@@ -1,9 +1,12 @@
 package com.informua.informua;
 
 import android.app.Activity;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +20,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -24,6 +29,17 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -35,7 +51,7 @@ public class MenuLateral extends AppCompatActivity
     EditText texto;
     Button enviarpost;
     RelativeLayout modal;
-
+    int intPost=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +87,9 @@ public class MenuLateral extends AppCompatActivity
     }
 
     private void obtenerPosts(String algo){
+
         AsyncHttpClient client =new AsyncHttpClient();
-        client.get("http://vps222360.ovh.net/posts/VerPosts.php?category="+algo, null, new JsonHttpResponseHandler() {
+        client.get("http://vps222360.ovh.net/posts/VerPosts.php?category=" + algo, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray result) {
                 adaptadorPosts adapter = new adaptadorPosts(actividad, result);
@@ -93,6 +110,22 @@ public class MenuLateral extends AppCompatActivity
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 texto.setText("");
                 obtenerPosts("all");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            }
+        });
+    }
+
+    public void meGusta(View v){
+
+        AsyncHttpClient client =new AsyncHttpClient();
+        client.post("http://vps222360.ovh.net/posts/Megusta.php", new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                texto.setText("");
+                //obtenerPosts("all");
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
@@ -164,4 +197,31 @@ public class MenuLateral extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-}
+
+    //==============================================================================================
+    //==============================================================================================
+
+
+
+    public void obtenerId(View miView) {
+        String idPost=miView.getTag().toString();
+
+        AsyncHttpClient client =new AsyncHttpClient();
+        client.get("http://vps222360.ovh.net/posts/Megusta.php?id=" + idPost, null, new AsyncHttpResponseHandler() {
+
+                    @Override
+                public void onSuccess ( int statusCode, Header[] headers,byte[] response){
+                    texto.setText("");
+                    obtenerPosts("all");
+                }
+
+                @Override
+                public void onFailure ( int statusCode, Header[] headers,
+                byte[] responseBody, Throwable error){
+                }
+            }
+
+            );
+
+        }
+    }
