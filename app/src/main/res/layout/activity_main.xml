@@ -28,37 +28,49 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="#a5000000"
+        android:layout_alignWithParentIfMissing="false"
+        android:id="@+id/postearrel">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:paddingLeft="5px"
-            android:paddingRight="5px"
+            android:paddingLeft="10px"
+            android:paddingRight="10px"
             android:paddingBottom="50px"
             android:paddingTop="50px"
-            android:background="#4052b5"
-            android:layout_marginBottom="10dp">
+            android:background="#ffffff"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentTop="true">
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/TextoNuevoPost"
                 android:layout_weight="1"
                 android:hint="Escribir un nuevo post"
-                android:textColor="#ffffff"
-                android:textColorHint="#f1f1f1"
-                android:inputType="textMultiLine" />
+                android:textColorHint="#777777"
+                android:inputType="textMultiLine"
+                android:textColor="#000000"
+                android:gravity="top|left" />
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Enviar"
+                android:text="Postear"
                 android:id="@+id/EnviarPost"
-                android:visibility="visible"/>
+                android:visibility="visible"
+                android:soundEffectsEnabled="true" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -70,7 +82,11 @@
         android:layout_centerInParent="true"
         android:id="@+id/Modal"
         android:background="#b3000000"
-        android:onClick="quitarModal">
+        android:onClick="quitarModal"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -81,7 +97,9 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:padding="15dp"
-            android:layout_centerInParent="true">
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp">
 
 
         <LinearLayout
@@ -103,8 +121,8 @@
                 android:tag="4">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:src="@drawable/ball"/>
 
 
@@ -112,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Deporte"
-                    android:textSize="30dp"
+                    android:textSize="15dp"
                     android:paddingLeft="15dp" />
             </LinearLayout>
 
@@ -128,8 +146,8 @@
                 android:tag="1">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:src="@drawable/heart"/>
 
 
@@ -137,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Amor"
-                    android:textSize="30dp"
+                    android:textSize="15dp"
                     android:paddingLeft="15dp" />
             </LinearLayout>
 
@@ -152,8 +170,8 @@
                 android:tag="7">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:src="@drawable/book"/>
 
 
@@ -161,7 +179,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Estudio"
-                    android:textSize="30dp"
+                    android:textSize="15dp"
                     android:paddingLeft="15dp" />
             </LinearLayout>
 
@@ -176,8 +194,8 @@
                 android:tag="6">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:src="@drawable/party"/>
 
 
@@ -185,7 +203,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Fiesta"
-                    android:textSize="30dp"
+                    android:textSize="15dp"
                     android:paddingLeft="15dp" />
             </LinearLayout>
 
@@ -200,8 +218,8 @@
                 android:tag="2">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:src="@drawable/music"/>
 
 
@@ -209,7 +227,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Musica"
-                    android:textSize="30dp"
+                    android:textSize="15dp"
                     android:paddingLeft="15dp" />
             </LinearLayout>
 
@@ -225,8 +243,8 @@
                 android:tag="5">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:src="@drawable/game"/>
 
 
@@ -234,7 +252,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Juegos"
-                    android:textSize="30dp"
+                    android:textSize="15dp"
                     android:paddingLeft="15dp" />
             </LinearLayout
                 >
@@ -250,8 +268,8 @@
                 android:tag="3">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:src="@drawable/com_facebook_tooltip_black_bottomnub"/>
 
 
@@ -259,12 +277,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="otros"
-                    android:textSize="30dp"
+                    android:textSize="15dp"
                     android:paddingLeft="15dp" />
             </LinearLayout>
 
         </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/add"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+
+
 
 </RelativeLayout>

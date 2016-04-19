@@ -33,6 +33,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.florent37.viewanimator.ViewAnimator;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -63,6 +64,8 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
     Button enviarpost;
     RelativeLayout modal;
     int intPost=0;
+    RelativeLayout postearrel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +77,10 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
         final Context context = getApplicationContext();
         listaPosts=(ListView)findViewById(R.id.listaPosts);
         modal = (RelativeLayout) findViewById(R.id.Modal);
+        postearrel=(RelativeLayout) findViewById(R.id.postearrel);
         actividad=this;
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         texto=(EditText) findViewById(R.id.TextoNuevoPost);
         texto.clearFocus();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -83,6 +89,9 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
             @Override
             public void onClick(View view) {
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                ViewAnimator.animate(postearrel).duration(400).fadeOut().start();
+                ViewAnimator.animate(fab).rotation(90).duration(500).start();
+                postearrel.setVisibility(View.INVISIBLE);
                 modal.setVisibility(View.VISIBLE);
             }
         });
@@ -101,6 +110,32 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
 
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(texto.getWindowToken(), 0);
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(postearrel.getVisibility()==View.VISIBLE){
+
+                    ViewAnimator.animate(postearrel).duration(400).fadeOut().start();
+                    ViewAnimator.animate(fab).rotation(90).duration(500).start();
+                    postearrel.setVisibility(View.INVISIBLE);
+                }else{
+                    postearrel.setVisibility(View.VISIBLE);
+                    ViewAnimator.animate(postearrel).duration(400).fadeIn().start();
+                    ViewAnimator.animate(fab).rotation(45).duration(500).start();
+                }
+
+            }
+        });
+        postearrel.setOnClickListener(new View.OnClickListener(){
+            @Override
+        public void onClick(View view){
+                ViewAnimator.animate(postearrel).duration(400).fadeOut().start();
+                ViewAnimator.animate(fab).rotation(90).duration(500).start();
+                postearrel.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     private void obtenerPosts(String algo){
