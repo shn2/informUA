@@ -93,7 +93,7 @@ public class adaptadorPosts extends BaseAdapter{
             RelativeLayout relativo = (RelativeLayout) rowView.findViewById(R.id.relativo);
             // TextView categoria = (TextView) rowView.findViewById(R.id.categoria);
             try {
-                JSONObject json_data = resultado.getJSONObject(position);
+                JSONObject json_data = resultado.getJSONObject(position-1);
                 fecha.setText(json_data.getString("fecha").split(" ")[0]);
                 texto.setText(json_data.getString("texto"));
                 megusta.setText(json_data.getString("like"));

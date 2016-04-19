@@ -71,20 +71,17 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_lateral);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final Context context = getApplicationContext();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        actividad=this;
         listaPosts=(ListView)findViewById(R.id.listaPosts);
         modal = (RelativeLayout) findViewById(R.id.Modal);
         postearrel=(RelativeLayout) findViewById(R.id.postearrel);
-        actividad=this;
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
         texto=(EditText) findViewById(R.id.TextoNuevoPost);
-        texto.clearFocus();
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         enviarpost=(Button) findViewById(R.id.EnviarPost);
+
         enviarpost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,32 +92,15 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
                 modal.setVisibility(View.VISIBLE);
             }
         });
-
-        obtenerPosts("all");
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(texto.getWindowToken(), 0);
-
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(postearrel.getVisibility()==View.VISIBLE){
+                if (postearrel.getVisibility() == View.VISIBLE) {
 
                     ViewAnimator.animate(postearrel).duration(400).fadeOut().start();
                     ViewAnimator.animate(fab).rotation(90).duration(500).start();
                     postearrel.setVisibility(View.INVISIBLE);
-                }else{
+                } else {
                     postearrel.setVisibility(View.VISIBLE);
                     ViewAnimator.animate(postearrel).duration(400).fadeIn().start();
                     ViewAnimator.animate(fab).rotation(45).duration(500).start();
@@ -128,14 +108,28 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
 
             }
         });
-        postearrel.setOnClickListener(new View.OnClickListener(){
+        postearrel.setOnClickListener(new View.OnClickListener() {
             @Override
-        public void onClick(View view){
+            public void onClick(View view) {
                 ViewAnimator.animate(postearrel).duration(400).fadeOut().start();
                 ViewAnimator.animate(fab).rotation(90).duration(500).start();
                 postearrel.setVisibility(View.INVISIBLE);
             }
         });
+
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(texto.getWindowToken(), 0);
+        setSupportActionBar(toolbar);
+        obtenerPosts("all");
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
     }
 
     private void obtenerPosts(String algo){
