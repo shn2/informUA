@@ -6,7 +6,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,7 +21,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -46,6 +52,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import cz.msebera.android.httpclient.Header;
+import xyz.hanks.library.SmallBang;
+import xyz.hanks.library.SmallBangListener;
 
 public class MenuLateral extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -64,20 +72,25 @@ public class MenuLateral extends AppCompatActivity
         setContentView(R.layout.activity_menu_lateral);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        final Context context = getApplicationContext();
         listaPosts=(ListView)findViewById(R.id.listaPosts);
         modal = (RelativeLayout) findViewById(R.id.Modal);
         actividad=this;
         texto=(EditText) findViewById(R.id.TextoNuevoPost);
         texto.clearFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         enviarpost=(Button) findViewById(R.id.EnviarPost);
-        enviarpost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                modal.setVisibility(View.VISIBLE);
-                //crearPost();
-            }
-        });
+        enviarpost
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+                        modal.setVisibility(View.VISIBLE);
+                        //crearPost();
+                    }
+                });
+
         obtenerPosts("all");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -89,17 +102,72 @@ public class MenuLateral extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(texto.getWindowToken(), 0);
     }
 
     private void obtenerPosts(String algo){
+        final SmallBang mSmallBang = SmallBang.attach2Window(this);
+        final Context c = getApplicationContext();
 
         AsyncHttpClient client =new AsyncHttpClient();
         client.get("http://vps222360.ovh.net/posts/VerPosts.php?category=" + algo, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray result) {
-                adaptadorPosts adapter = new adaptadorPosts(actividad, result);
+                adaptadorPosts adapter = new adaptadorPosts(actividad, result, c);
                 listaPosts.setAdapter(adapter);
+                listaPosts.setLongClickable(true);
+                listaPosts.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                                   int pos, long id) {
+                        // TODO Auto-generated method stub
+                        System.out.println("eeeeeoooooooooooooooooo");
+                        //  ((ViewGroup) arg1).getChildAt(1).setVisibility(View.VISIBLE);
+                        int childcount = ((ViewGroup) arg1).getChildCount();
+                        // for (int i=0; i < childcount; i++){
+                        final View v = ((ViewGroup) ((ViewGroup) arg1).getParent()).getChildAt(1);
+
+                        final String idPost = v.getTag().toString();
+                        v.setVisibility(View.VISIBLE);
+
+
+                        mSmallBang.bang(v, 180, new SmallBangListener() {
+                            @Override
+                            public void onAnimationStart() {
+                                v.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onAnimationEnd() {
+                                v.setVisibility(View.INVISIBLE);
+                                AsyncHttpClient client = new AsyncHttpClient();
+                                client.get("http://vps222360.ovh.net/posts/Megusta.php?id=" + idPost, null, new AsyncHttpResponseHandler() {
+
+                                            @Override
+                                            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                                                texto.setText("");
+                                                obtenerPosts("all");
+                                            }
+
+                                            @Override
+                                            public void onFailure(int statusCode, Header[] headers,
+                                                                  byte[] responseBody, Throwable error) {
+                                            }
+                                        }
+
+                                );
+                            }
+                        });
+                        System.out.println("dlkflasdkfhlakjsfdi!" + v.toString());
+                        //}
+
+                        return true;
+                    }
+                });
+
+
             }
         });
     }
@@ -211,24 +279,27 @@ public class MenuLateral extends AppCompatActivity
 
     public void obtenerId(View miView) {
         String idPost=miView.getTag().toString();
-        ImageView corazon=(ImageView) ((ViewGroup) ((ViewGroup) miView).getParent().getParent()).getChildAt(1);
-        corazon.setVisibility(View.VISIBLE);
         AsyncHttpClient client =new AsyncHttpClient();
         client.get("http://vps222360.ovh.net/posts/Megusta.php?id=" + idPost, null, new AsyncHttpResponseHandler() {
 
                     @Override
-                public void onSuccess ( int statusCode, Header[] headers,byte[] response){
-                    texto.setText("");
-                    obtenerPosts("all");
+                    public void onSuccess ( int statusCode, Header[] headers,byte[] response){
+                        texto.setText("");
+                        obtenerPosts("all");
+                    }
+
+                    @Override
+                    public void onFailure ( int statusCode, Header[] headers,
+                                            byte[] responseBody, Throwable error){
+                    }
                 }
 
-                @Override
-                public void onFailure ( int statusCode, Header[] headers,
-                byte[] responseBody, Throwable error){
-                }
-            }
+        );
 
-            );
-
-        }
     }
+
+
+
+
+
+}

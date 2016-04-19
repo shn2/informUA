@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#4052b5"
+        android:background="@color/colorfondolista"
         android:clickable="false">
 
         <TextView
@@ -47,7 +47,8 @@
                 android:layout_weight="1"
                 android:hint="Escribir un nuevo post"
                 android:textColor="#ffffff"
-                android:textColorHint="#f1f1f1" />
+                android:textColorHint="#f1f1f1"
+                android:inputType="textMultiLine" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -65,7 +66,8 @@
             android:dividerHeight="0dp"
             android:nestedScrollingEnabled="true"
             android:focusable="true"
-            android:focusableInTouchMode="true" />
+            android:focusableInTouchMode="true"
+            android:background="@color/colorfondolista" />
 
     </LinearLayout>
 
