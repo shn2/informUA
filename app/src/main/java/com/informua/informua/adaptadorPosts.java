@@ -42,7 +42,7 @@ public class adaptadorPosts extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return resultado.length();
+        return resultado.length()+1;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class adaptadorPosts extends BaseAdapter{
 
 
             try {
-                return resultado.get(position);
+                return resultado.get(position+1);
             } catch (JSONException e) {
             }
         }else {
@@ -74,71 +74,57 @@ public class adaptadorPosts extends BaseAdapter{
     }
 
     public View getView(int position,View view,ViewGroup parent) {
-        //       final Context context = getApplicationContext();
-        LayoutInflater inflater = context.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.posts, null, true);
+        if (position == 0) {
+            TextView t = new TextView(context);
+            t.setText("Todos los posts");
+            t.setTextSize(15);
+            t.setPadding(10,20,10,15);
+            return t;
+        } else {
 
-        rowView.setOnTouchListener(new View.OnTouchListener() {
-            private GestureDetector gestureDetector = new GestureDetector(context.getApplicationContext(), new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onDoubleTap(MotionEvent e) {
-                    Log.d("TEST", "onDoubleTap");
-                    return super.onDoubleTap(e);
+
+            LayoutInflater inflater = context.getLayoutInflater();
+            View rowView = inflater.inflate(R.layout.posts, null, true);
+            TextView fecha = (TextView) rowView.findViewById(R.id.fecha);
+            TextView texto = (TextView) rowView.findViewById(R.id.texto);
+            TextView megusta = (TextView) rowView.findViewById(R.id.megustas);
+            ImageView categoria_img = (ImageView) rowView.findViewById(R.id.icono_categoria);
+            //  ImageView botonLike=(ImageView)rowView.findViewById(R.id.botonLike);
+            RelativeLayout relativo = (RelativeLayout) rowView.findViewById(R.id.relativo);
+            // TextView categoria = (TextView) rowView.findViewById(R.id.categoria);
+            try {
+                JSONObject json_data = resultado.getJSONObject(position);
+                fecha.setText(json_data.getString("fecha").split(" ")[0]);
+                texto.setText(json_data.getString("texto"));
+                megusta.setText(json_data.getString("like"));
+                String categoria = json_data.getString("id_categoria");
+                //     botonLike.setTag(json_data.getString("id"));
+                relativo.setTag(json_data.getInt("id"));
+                System.out.println(categoria);
+                if (categoria.equals("1")) {
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.heart));
+                    System.out.println("holaaaaaaaaaaa");
                 }
-                //     ... // implement here other callback methods like onFling, onScroll as necessary
-            });
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.d("TEST", "Raw event: " + event.getAction() + ", (" + event.getRawX() + ", " + event.getRawY() + ")");
-                gestureDetector.onTouchEvent(event);
-                return true;
+                if (categoria.equals("2"))
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.music));
+                if (categoria.equals("3"))
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.com_facebook_tooltip_black_bottomnub));
+                if (categoria.equals("4"))
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.ball));
+                if (categoria.equals("5"))
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.game));
+                if (categoria.equals("6"))
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.party));
+                if (categoria.equals("7"))
+                    categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.book));
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        });
+            return rowView;
 
-
-
-
-
-        TextView fecha = (TextView) rowView.findViewById(R.id.fecha);
-        TextView texto = (TextView) rowView.findViewById(R.id.texto);
-        TextView megusta = (TextView) rowView.findViewById(R.id.megustas);
-        ImageView categoria_img=(ImageView) rowView.findViewById(R.id.icono_categoria);
-        //  ImageView botonLike=(ImageView)rowView.findViewById(R.id.botonLike);
-        RelativeLayout relativo=(RelativeLayout) rowView.findViewById(R.id.relativo);
-        // TextView categoria = (TextView) rowView.findViewById(R.id.categoria);
-        try {
-            JSONObject json_data = resultado.getJSONObject(position);
-            fecha.setText(json_data.getString("fecha").split(" ")[0]);
-            texto.setText(json_data.getString("texto"));
-            megusta.setText(json_data.getString("like"));
-            String categoria=json_data.getString("id_categoria");
-            //     botonLike.setTag(json_data.getString("id"));
-            relativo.setTag(json_data.getInt("id"));
-            System.out.println(categoria);
-            if(categoria.equals("1")){
-                categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.heart));
-                System.out.println("holaaaaaaaaaaa");
-            }
-            if(categoria.equals("2"))
-                categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.music));
-            if(categoria.equals("3"))
-                categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.com_facebook_tooltip_black_bottomnub));
-            if(categoria.equals("4"))
-                categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.ball));
-            if(categoria.equals("5"))
-                categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.game));
-            if(categoria.equals("6"))
-                categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.party));
-            if(categoria.equals("7"))
-                categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.book));
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
-        return rowView;
 
-    };
-
+    }
 
 
 

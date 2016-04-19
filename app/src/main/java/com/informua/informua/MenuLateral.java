@@ -55,8 +55,7 @@ import cz.msebera.android.httpclient.Header;
 import xyz.hanks.library.SmallBang;
 import xyz.hanks.library.SmallBangListener;
 
-public class MenuLateral extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MenuLateral extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     JSONArray resultado;
     ListView listaPosts;
     Activity actividad;
@@ -67,10 +66,10 @@ public class MenuLateral extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_lateral);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         final Context context = getApplicationContext();
         listaPosts=(ListView)findViewById(R.id.listaPosts);
@@ -80,16 +79,13 @@ public class MenuLateral extends AppCompatActivity
         texto.clearFocus();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         enviarpost=(Button) findViewById(R.id.EnviarPost);
-        enviarpost
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-                        modal.setVisibility(View.VISIBLE);
-                        //crearPost();
-                    }
-                });
+        enviarpost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                modal.setVisibility(View.VISIBLE);
+            }
+        });
 
         obtenerPosts("all");
 
@@ -122,17 +118,18 @@ public class MenuLateral extends AppCompatActivity
                     @Override
                     public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                                    int pos, long id) {
-                        // TODO Auto-generated method stub
-                        System.out.println("eeeeeoooooooooooooooooo");
-                        //  ((ViewGroup) arg1).getChildAt(1).setVisibility(View.VISIBLE);
-                        int childcount = ((ViewGroup) arg1).getChildCount();
-                        // for (int i=0; i < childcount; i++){
-                        final View v = ((ViewGroup) ((ViewGroup) arg1).getParent()).getChildAt(1);
+                        final TextView v2 =(TextView) ((ViewGroup) ((ViewGroup) arg1).getChildAt(2)).getChildAt(0);
 
+                        System.out.println("hooooola " + v2.getText());
+                        String c=v2.getText().toString();
+                        int caca=Integer.parseInt(c)+1;
+                        String cacas=""+caca;
+                        mSmallBang.bang(v2);
+                        v2.setText(cacas);
+
+                        final View v = ((ViewGroup) ((ViewGroup) arg1).getParent()).getChildAt(1);
                         final String idPost = v.getTag().toString();
                         v.setVisibility(View.VISIBLE);
-
-
                         mSmallBang.bang(v, 180, new SmallBangListener() {
                             @Override
                             public void onAnimationStart() {
@@ -147,8 +144,6 @@ public class MenuLateral extends AppCompatActivity
 
                                             @Override
                                             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                                                texto.setText("");
-                                                obtenerPosts("all");
                                             }
 
                                             @Override
@@ -160,9 +155,6 @@ public class MenuLateral extends AppCompatActivity
                                 );
                             }
                         });
-                        System.out.println("dlkflasdkfhlakjsfdi!" + v.toString());
-                        //}
-
                         return true;
                     }
                 });
@@ -186,21 +178,6 @@ public class MenuLateral extends AppCompatActivity
                 obtenerPosts("all");
             }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-            }
-        });
-    }
-
-    public void meGusta(View v){
-
-        AsyncHttpClient client =new AsyncHttpClient();
-        client.post("http://vps222360.ovh.net/posts/Megusta.php", new AsyncHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                texto.setText("");
-                //obtenerPosts("all");
-            }
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
             }
@@ -271,34 +248,6 @@ public class MenuLateral extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    //==============================================================================================
-    //==============================================================================================
-
-
-
-    public void obtenerId(View miView) {
-        String idPost=miView.getTag().toString();
-        AsyncHttpClient client =new AsyncHttpClient();
-        client.get("http://vps222360.ovh.net/posts/Megusta.php?id=" + idPost, null, new AsyncHttpResponseHandler() {
-
-                    @Override
-                    public void onSuccess ( int statusCode, Header[] headers,byte[] response){
-                        texto.setText("");
-                        obtenerPosts("all");
-                    }
-
-                    @Override
-                    public void onFailure ( int statusCode, Header[] headers,
-                                            byte[] responseBody, Throwable error){
-                    }
-                }
-
-        );
-
-    }
-
-
 
 
 
