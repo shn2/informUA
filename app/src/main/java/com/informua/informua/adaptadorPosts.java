@@ -73,7 +73,7 @@ public class adaptadorPosts extends BaseAdapter{
             TextView texto = (TextView) rowView.findViewById(R.id.texto);
             TextView megusta = (TextView) rowView.findViewById(R.id.megustas);
             ImageView categoria_img=(ImageView) rowView.findViewById(R.id.icono_categoria);
-            ImageButton botonLike=(ImageButton)rowView.findViewById(R.id.botonLike);
+        LinearLayout botonLike=(LinearLayout)rowView.findViewById(R.id.botonLike);
         LinearLayout postLayout=(LinearLayout) rowView.findViewById(R.id.post);
            // TextView categoria = (TextView) rowView.findViewById(R.id.categoria);
             try {

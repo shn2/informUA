@@ -16,8 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -205,7 +207,8 @@ public class MenuLateral extends AppCompatActivity
 
     public void obtenerId(View miView) {
         String idPost=miView.getTag().toString();
-
+        ImageView corazon=(ImageView) ((ViewGroup) ((ViewGroup) miView).getParent().getParent()).getChildAt(1);
+        corazon.setVisibility(View.VISIBLE);
         AsyncHttpClient client =new AsyncHttpClient();
         client.get("http://vps222360.ovh.net/posts/Megusta.php?id=" + idPost, null, new AsyncHttpResponseHandler() {
 

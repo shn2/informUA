@@ -51,7 +51,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:gravity="fill_vertical">
+            android:gravity="fill_vertical"
+            android:id="@+id/botonLike"
+            android:onClick="obtenerId">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -64,30 +66,19 @@
             <ImageView
                 android:layout_width="11dp"
                 android:layout_height="11dp"
-                android:id="@+id/imageView2"
                 android:src="@drawable/heart"
                 android:layout_marginTop="0dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="1">
-
-            <ImageButton
-
-                android:layout_width="25dp"
-                android:layout_height="73dp"
-                android:id="@+id/botonLike"
-                android:src="@drawable/heart"
-                android:onClick="obtenerId"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="0.14" />
-        </LinearLayout>
-
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/imageView2"
+        android:src="@drawable/heart1"
+        android:scaleType="fitCenter"
+        android:visibility="gone" />
 </RelativeLayout>
