@@ -7,7 +7,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clickable="false">
 
         <LinearLayout
             android:orientation="vertical"
@@ -52,12 +53,11 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:gravity="fill_vertical"
-                android:id="@+id/botonLike"
-                android:onClick="obtenerId">
+                android:id="@+id/botonLike">
 
                 <TextView
                     android:layout_width="wrap_content"

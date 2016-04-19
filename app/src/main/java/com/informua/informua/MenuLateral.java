@@ -74,6 +74,7 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
         setContentView(R.layout.activity_menu_lateral);
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final Context context = getApplicationContext();
+        final SmallBang mSmallBang = SmallBang.attach2Window(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         actividad=this;
@@ -119,6 +120,62 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
         });
 
 
+
+
+
+
+
+        listaPosts.setLongClickable(true);
+        listaPosts.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int pos, long id) {
+                final TextView v2 = (TextView) ((ViewGroup) ((ViewGroup) arg1).getChildAt(2)).getChildAt(0);
+
+                System.out.println("hooooola " + v2.getText());
+                String c = v2.getText().toString();
+                int caca = Integer.parseInt(c) + 1;
+                String cacas = "" + caca;
+                mSmallBang.bang(v2);
+                v2.setText(cacas);
+
+                final View v = ((ViewGroup) ((ViewGroup) arg1).getParent()).getChildAt(1);
+                final String idPost = v.getTag().toString();
+                v.setVisibility(View.VISIBLE);
+                mSmallBang.bang(v, 180, new SmallBangListener() {
+                    @Override
+                    public void onAnimationStart() {
+                        v.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd() {
+                        v.setVisibility(View.INVISIBLE);
+                        AsyncHttpClient client = new AsyncHttpClient();
+                        client.get("http://vps222360.ovh.net/posts/Megusta.php?id=" + idPost, null, new AsyncHttpResponseHandler() {
+
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                                    }
+
+                                    @Override
+                                    public void onFailure(int statusCode, Header[] headers,
+                                                          byte[] responseBody, Throwable error) {
+                                    }
+                                }
+
+                        );
+                    }
+                });
+                return true;
+            }
+        });
+
+
+
+
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -131,10 +188,20 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
         obtenerPosts("all");
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+
+        listaPosts.setClickable(true);
+
+        AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println("holaaaaa");
+            }
+        };
+        listaPosts.setOnItemClickListener(listener);
     }
 
     private void obtenerPosts(String algo){
-        final SmallBang mSmallBang = SmallBang.attach2Window(this);
+
         final Context c = getApplicationContext();
 
         AsyncHttpClient client =new AsyncHttpClient();
@@ -143,60 +210,10 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
             public void onSuccess(int statusCode, Header[] headers, JSONArray result) {
                 adaptadorPosts adapter = new adaptadorPosts(actividad, result, c);
                 listaPosts.setAdapter(adapter);
-                listaPosts.setOnClickListener(new AdapterView.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(actividad, comentarios.class);
-                        startActivity(intent);
-                    }
 
 
-                });
-                listaPosts.setLongClickable(true);
-                listaPosts.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-                                                   int pos, long id) {
-                        final TextView v2 = (TextView) ((ViewGroup) ((ViewGroup) arg1).getChildAt(2)).getChildAt(0);
 
-                        System.out.println("hooooola " + v2.getText());
-                        String c = v2.getText().toString();
-                        int caca = Integer.parseInt(c) + 1;
-                        String cacas = "" + caca;
-                        mSmallBang.bang(v2);
-                        v2.setText(cacas);
 
-                        final View v = ((ViewGroup) ((ViewGroup) arg1).getParent()).getChildAt(1);
-                        final String idPost = v.getTag().toString();
-                        v.setVisibility(View.VISIBLE);
-                        mSmallBang.bang(v, 180, new SmallBangListener() {
-                            @Override
-                            public void onAnimationStart() {
-                                v.setVisibility(View.VISIBLE);
-                            }
-
-                            @Override
-                            public void onAnimationEnd() {
-                                v.setVisibility(View.INVISIBLE);
-                                AsyncHttpClient client = new AsyncHttpClient();
-                                client.get("http://vps222360.ovh.net/posts/Megusta.php?id=" + idPost, null, new AsyncHttpResponseHandler() {
-
-                                            @Override
-                                            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                                            }
-
-                                            @Override
-                                            public void onFailure(int statusCode, Header[] headers,
-                                                                  byte[] responseBody, Throwable error) {
-                                            }
-                                        }
-
-                                );
-                            }
-                        });
-                        return true;
-                    }
-                });
 
 
             }
@@ -288,8 +305,6 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
         return true;
     }
 
-    public  void verPost(View v){
 
-    }
 
 }

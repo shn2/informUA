@@ -65,12 +65,7 @@ public class adaptadorPosts extends BaseAdapter{
 
     @Override
     public long getItemId(int position) {
-        if(position>0){  try {
-            return  resultado.get(position).hashCode();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }}
-        return 0;
+        return 1;
     }
 
     public View getView(int position,View view,ViewGroup parent) {

@@ -75,6 +75,7 @@ public class Main2Activity extends Activity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeo");
+                loginResult.getAccessToken();
                 //Se deberia hacer una llamada a la api guardando el token que da face y desde el servidor hacer cosas con php
 
                 //Abrir Main activity
