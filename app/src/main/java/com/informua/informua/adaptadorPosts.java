@@ -15,7 +15,8 @@ import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-        import android.widget.TextView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,7 +74,7 @@ public class adaptadorPosts extends BaseAdapter{
             TextView megusta = (TextView) rowView.findViewById(R.id.megustas);
             ImageView categoria_img=(ImageView) rowView.findViewById(R.id.icono_categoria);
             ImageButton botonLike=(ImageButton)rowView.findViewById(R.id.botonLike);
-
+        LinearLayout postLayout=(LinearLayout) rowView.findViewById(R.id.post);
            // TextView categoria = (TextView) rowView.findViewById(R.id.categoria);
             try {
                 JSONObject json_data = resultado.getJSONObject(position);
@@ -82,6 +83,7 @@ public class adaptadorPosts extends BaseAdapter{
                 megusta.setText(json_data.getString("like"));
                 String categoria=json_data.getString("id_categoria");
                 botonLike.setTag(json_data.getString("id"));
+                postLayout.setTag(json_data.getInt("id"));
                 System.out.println(categoria);
                 if(categoria.equals("1")){
                     categoria_img.setImageDrawable(context.getResources().getDrawable(R.drawable.heart));

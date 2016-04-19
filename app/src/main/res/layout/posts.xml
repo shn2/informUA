@@ -13,7 +13,8 @@
         android:layout_centerHorizontal="true"
         android:padding="10dp"
         android:background="@drawable/tarjeta"
-        android:longClickable="true">
+        android:longClickable="true"
+        android:id="@+id/post">
 
         <FrameLayout
             android:layout_width="match_parent"
