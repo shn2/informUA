@@ -28,7 +28,7 @@ android:layout_marginBottom="5dp">
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Small Text"
-                android:id="@+id/textView4"
+                android:id="@+id/nombre_comentario"
                 android:layout_marginLeft="10px"
                 android:gravity="left"
                 android:layout_gravity="left|center_vertical" />
@@ -38,7 +38,7 @@ android:layout_marginBottom="5dp">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Textccc"
-            android:id="@+id/textView5"
+            android:id="@+id/texto_comentario"
             android:textSize="15dp"
             android:layout_marginLeft="5dp" />
 

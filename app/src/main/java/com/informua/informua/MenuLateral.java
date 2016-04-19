@@ -193,9 +193,14 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
         AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                final TextView v2 = ((TextView)(((ViewGroup) (((ViewGroup) ((ViewGroup) view).getChildAt(0)).getChildAt(0))).getChildAt(1)));
+
+
                 System.out.println("holaaaaa");
                 Intent intent = new Intent(actividad, comentarios.class);
                 intent.putExtra("id", id);
+                intent.putExtra("texto",v2.getText());
                 startActivity(intent);
             }
         };

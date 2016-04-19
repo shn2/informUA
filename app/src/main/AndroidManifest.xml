@@ -30,7 +30,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".MenuLateral"
-            android:label="@string/title_activity_menu_lateral"
+            android:label="InformUA"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".comentarios"

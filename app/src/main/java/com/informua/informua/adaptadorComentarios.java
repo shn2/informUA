@@ -60,8 +60,12 @@ public class adaptadorComentarios extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.comentario, null, true);
+        TextView texto = (TextView) rowView.findViewById(R.id.texto_comentario);
+        TextView nombre = (TextView) rowView.findViewById(R.id.nombre_comentario);
         try {
             JSONObject json_data = resultado.getJSONObject(position);
+            texto.setText(json_data.getString("texto"));
+            nombre.setText("Jorge");
         } catch (JSONException e) {
             e.printStackTrace();
         }
