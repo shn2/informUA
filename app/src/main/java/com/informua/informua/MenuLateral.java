@@ -74,7 +74,6 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
         setContentView(R.layout.activity_menu_lateral);
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final Context context = getApplicationContext();
-        final SmallBang mSmallBang = SmallBang.attach2Window(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         actividad=this;
@@ -130,16 +129,20 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
-                final TextView v2 = (TextView) ((ViewGroup) ((ViewGroup) arg1).getChildAt(2)).getChildAt(0);
+               // System.out.println("CHilds: " +
+
+                     //   ((ViewGroup)((ViewGroup) (((ViewGroup) ((ViewGroup) arg1).getChildAt(0)).getChildAt(0))).getChildAt(2)).getChildAt(0).toString()   );
+                final TextView v2 = ((TextView)((ViewGroup)((ViewGroup) (((ViewGroup) ((ViewGroup) arg1).getChildAt(0)).getChildAt(0))).getChildAt(2)).getChildAt(0));
 
                 System.out.println("hooooola " + v2.getText());
                 String c = v2.getText().toString();
                 int caca = Integer.parseInt(c) + 1;
                 String cacas = "" + caca;
+                SmallBang mSmallBang = SmallBang.attach2Window(actividad);
                 mSmallBang.bang(v2);
                 v2.setText(cacas);
 
-                final View v = ((ViewGroup) ((ViewGroup) arg1).getParent()).getChildAt(1);
+                final View v = ((ViewGroup) ((ViewGroup) arg1).getChildAt(0)).getChildAt(1);
                 final String idPost = v.getTag().toString();
                 v.setVisibility(View.VISIBLE);
                 mSmallBang.bang(v, 180, new SmallBangListener() {
@@ -174,7 +177,7 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
 
 
 
-
+        
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -195,13 +198,16 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 System.out.println("holaaaaa");
+                Intent intent = new Intent(actividad, comentarios.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
             }
         };
         listaPosts.setOnItemClickListener(listener);
     }
 
     private void obtenerPosts(String algo){
-
+       
         final Context c = getApplicationContext();
 
         AsyncHttpClient client =new AsyncHttpClient();

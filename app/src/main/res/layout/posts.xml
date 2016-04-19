@@ -7,8 +7,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="false">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="vertical"
@@ -18,7 +17,6 @@
             android:layout_centerHorizontal="true"
             android:padding="10dp"
             android:background="@drawable/tarjeta"
-            android:longClickable="true"
             android:id="@+id/post">
 
             <FrameLayout
@@ -83,7 +81,6 @@
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:background="@drawable/heart1"
-            android:clickable="false"
             android:layout_gravity="center"
             android:visibility="invisible"
             android:id="@+id/relativo">

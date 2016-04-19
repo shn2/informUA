@@ -65,7 +65,15 @@ public class adaptadorPosts extends BaseAdapter{
 
     @Override
     public long getItemId(int position) {
-        return 1;
+        JSONObject json_data = null;
+        try {
+            json_data = resultado.getJSONObject(position-1);
+                return json_data.getInt("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 
     public View getView(int position,View view,ViewGroup parent) {
