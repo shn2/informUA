@@ -129,12 +129,8 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
-               // System.out.println("CHilds: " +
-
-                     //   ((ViewGroup)((ViewGroup) (((ViewGroup) ((ViewGroup) arg1).getChildAt(0)).getChildAt(0))).getChildAt(2)).getChildAt(0).toString()   );
                 final TextView v2 = ((TextView)((ViewGroup)((ViewGroup) (((ViewGroup) ((ViewGroup) arg1).getChildAt(0)).getChildAt(0))).getChildAt(2)).getChildAt(0));
 
-                System.out.println("hooooola " + v2.getText());
                 String c = v2.getText().toString();
                 int caca = Integer.parseInt(c) + 1;
                 String cacas = "" + caca;
@@ -216,12 +212,6 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
             public void onSuccess(int statusCode, Header[] headers, JSONArray result) {
                 adaptadorPosts adapter = new adaptadorPosts(actividad, result, c);
                 listaPosts.setAdapter(adapter);
-
-
-
-
-
-
             }
         });
     }
