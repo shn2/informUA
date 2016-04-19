@@ -1,0 +1,46 @@
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:padding="5dip"
+android:background="@color/colorfondolista"
+android:layout_marginBottom="5dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:background="@drawable/tarjeta"
+        android:longClickable="true"
+        android:id="@+id/linearLayout4" >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/textView4"
+                android:layout_marginLeft="10px"
+                android:gravity="left"
+                android:layout_gravity="left|center_vertical" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Textccc"
+            android:id="@+id/textView5"
+            android:textSize="15dp"
+            android:layout_marginLeft="5dp" />
+
+    </LinearLayout>
+</RelativeLayout>

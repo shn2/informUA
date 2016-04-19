@@ -81,17 +81,13 @@ public class adaptadorPosts extends BaseAdapter{
             t.setPadding(10,20,10,15);
             return t;
         } else {
-
-
             LayoutInflater inflater = context.getLayoutInflater();
             View rowView = inflater.inflate(R.layout.posts, null, true);
             TextView fecha = (TextView) rowView.findViewById(R.id.fecha);
             TextView texto = (TextView) rowView.findViewById(R.id.texto);
             TextView megusta = (TextView) rowView.findViewById(R.id.megustas);
             ImageView categoria_img = (ImageView) rowView.findViewById(R.id.icono_categoria);
-            //  ImageView botonLike=(ImageView)rowView.findViewById(R.id.botonLike);
             RelativeLayout relativo = (RelativeLayout) rowView.findViewById(R.id.relativo);
-            // TextView categoria = (TextView) rowView.findViewById(R.id.categoria);
             try {
                 JSONObject json_data = resultado.getJSONObject(position-1);
                 fecha.setText(json_data.getString("fecha").split(" ")[0]);

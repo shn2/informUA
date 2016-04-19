@@ -2,6 +2,7 @@ package com.informua.informua;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -142,17 +143,26 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
             public void onSuccess(int statusCode, Header[] headers, JSONArray result) {
                 adaptadorPosts adapter = new adaptadorPosts(actividad, result, c);
                 listaPosts.setAdapter(adapter);
+                listaPosts.setOnClickListener(new AdapterView.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(actividad, comentarios.class);
+                        startActivity(intent);
+                    }
+
+
+                });
                 listaPosts.setLongClickable(true);
                 listaPosts.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                                    int pos, long id) {
-                        final TextView v2 =(TextView) ((ViewGroup) ((ViewGroup) arg1).getChildAt(2)).getChildAt(0);
+                        final TextView v2 = (TextView) ((ViewGroup) ((ViewGroup) arg1).getChildAt(2)).getChildAt(0);
 
                         System.out.println("hooooola " + v2.getText());
-                        String c=v2.getText().toString();
-                        int caca=Integer.parseInt(c)+1;
-                        String cacas=""+caca;
+                        String c = v2.getText().toString();
+                        int caca = Integer.parseInt(c) + 1;
+                        String cacas = "" + caca;
                         mSmallBang.bang(v2);
                         v2.setText(cacas);
 
@@ -278,6 +288,8 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
         return true;
     }
 
+    public  void verPost(View v){
 
+    }
 
 }
