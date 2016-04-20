@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 
 import com.facebook.AccessToken;
@@ -19,9 +20,14 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import cz.msebera.android.httpclient.Header;
 
 
 public class Main2Activity extends Activity {
@@ -62,8 +68,28 @@ public class Main2Activity extends Activity {
         //Si ya está loggeado en face va a a la actividad 2 directamente
         ///////////////////////////////////////////////////////////////////////////////////////////
         if(AccessToken.getCurrentAccessToken()!=null){
-            Intent intent = new Intent(view, MenuLateral.class);
-            startActivity(intent);
+            final AccessToken accessToken= AccessToken.getCurrentAccessToken();
+            System.out.println("EEEEEEEEO "+accessToken.getUserId());
+            System.out.println("EEEEEEEEO "+accessToken.getToken());
+            AsyncHttpClient client =new AsyncHttpClient();
+            RequestParams params= new RequestParams();;
+            params.put("id",accessToken.getUserId());
+            params.put("token", accessToken.getToken());
+            client.post("http://vps222360.ovh.net/usuarios/CrearUsuario.php", params, new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                    Intent intent = new Intent(view, MenuLateral.class);
+                    intent.putExtra("id", accessToken.getUserId());
+                    startActivity(intent);
+
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                    System.out.println("EEEEEEEEO "+responseBody);
+                }
+            });
+
         }
 
 
@@ -74,14 +100,24 @@ public class Main2Activity extends Activity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeo");
                 loginResult.getAccessToken();
-                //Se deberia hacer una llamada a la api guardando el token que da face y desde el servidor hacer cosas con php
+                AccessToken accessToken=loginResult.getAccessToken();
+                AsyncHttpClient client =new AsyncHttpClient();
+                RequestParams params= new RequestParams();;
+                params.put("id",accessToken.getUserId());
+                params.put("token", accessToken.getToken());
+                client.post("http://vps222360.ovh.net/usuarios/CrearUsuario.php", params, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                        Intent intent = new Intent(view, MenuLateral.class);
+                        startActivity(intent);
+                    }
 
-                //Abrir Main activity
-                Intent intent = new Intent(view, MenuLateral.class);
-                startActivity(intent);
-                /////////////////////////////
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        System.out.println("EEEEEEEEO "+responseBody);
+                    }
+                });
 
             }
 

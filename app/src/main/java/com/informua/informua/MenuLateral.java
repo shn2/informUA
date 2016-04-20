@@ -66,6 +66,7 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
     RelativeLayout modal;
     int intPost=0;
     RelativeLayout postearrel;
+    int idUsuarioLogeado ;
 
 
     @Override
@@ -82,7 +83,7 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
         postearrel=(RelativeLayout) findViewById(R.id.postearrel);
         texto=(EditText) findViewById(R.id.TextoNuevoPost);
         enviarpost=(Button) findViewById(R.id.EnviarPost);
-
+        idUsuarioLogeado=getIntent().getExtras().getInt("id");
         enviarpost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -201,6 +202,7 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
                 Intent intent = new Intent(actividad, comentarios.class);
                 intent.putExtra("id", id);
                 intent.putExtra("texto",v2.getText());
+                intent.putExtra("idUsuarioLogeado",idUsuarioLogeado);
                 startActivity(intent);
             }
         };
