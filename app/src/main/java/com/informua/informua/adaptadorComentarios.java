@@ -65,7 +65,7 @@ public class adaptadorComentarios extends BaseAdapter {
         try {
             JSONObject json_data = resultado.getJSONObject(position);
             texto.setText(json_data.getString("texto"));
-            nombre.setText("Jorge");
+            nombre.setText(json_data.getString("nombre"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
