@@ -43,7 +43,7 @@ public class Main2Activity extends Activity {
         setContentView(R.layout.activity_main2);
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton)findViewById(R.id.login_button);
-
+        loginButton.setPublishPermissions("can_comment");
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         /////      Sacar claves hash que hay que incluir en face         ///////////////////////////

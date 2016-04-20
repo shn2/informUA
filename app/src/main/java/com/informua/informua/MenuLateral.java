@@ -234,6 +234,7 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
 
             }
         });
+        view.setVisibility(View.GONE);
     }
 
 
