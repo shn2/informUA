@@ -64,5 +64,13 @@
             android:layout_alignParentBottom="false"
             android:layout_alignParentRight="true"
             android:text=">" />
+
     </RelativeLayout>
+    <com.lusfold.spinnerloading.SpinnerLoading
+        android:background="#00001525"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_loading"
+        android:visibility="gone" />
 </RelativeLayout>

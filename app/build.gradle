@@ -34,5 +34,7 @@ dependencies {
     compile 'hanks.xyz:smallbang-library:0.1.2'
     compile 'com.github.florent37:viewanimator:1.0.3@aar'
     compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.lusfold.spinnerloading:library:1.0.0'
+
     //compile 'com.github.clans:fab:1.6.3'
 }

@@ -19,6 +19,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.lusfold.spinnerloading.SpinnerLoading;
 
 import org.json.JSONArray;
 
@@ -66,7 +67,7 @@ public class comentarios extends AppCompatActivity {
                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                         textoComentario.setText("");
                         System.out.println("eoieoe:" + 2);
-                        obtenerComentarios("id");
+                        obtenerComentarios(id.toString());
                     }
 
                     @Override
@@ -90,12 +91,15 @@ public class comentarios extends AppCompatActivity {
     private void obtenerComentarios(String algo){
 
         final Context c = getApplicationContext();
+        final SpinnerLoading view = (SpinnerLoading) findViewById(R.id.spinner_loading);
+        view.setVisibility(View.VISIBLE);
+
 
         AsyncHttpClient client =new AsyncHttpClient();
         client.get("http://vps222360.ovh.net/comentarios/VerComentariosPosts.php?post=" + algo, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray result) {
-
+                view.setVisibility(View.GONE);
                 adaptadorComentarios adapter = new adaptadorComentarios(actividad, result);
                 listacomentarios.setAdapter(adapter);
                 System.out.println("EEEEEEEEEEEE");

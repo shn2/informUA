@@ -80,19 +80,20 @@ public class Main2Activity extends Activity {
             client.post("http://vps222360.ovh.net/usuarios/CrearUsuario.php", params, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                    Intent intent = new Intent(view, MenuLateral.class);
-                    intent.putExtra("id", usuarioId);
-                    System.out.println("EEEEEEEEO "+usuarioId);
-                    startActivity(intent);
+                    System.out.println("EEEEEEO Crearusuario.php bien eh");
+
 
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    System.out.println("EEEEEEEEO "+responseBody);
+                    System.out.println("EEEEEEEEO " + responseBody);
                 }
             });
-
+            Intent intent = new Intent(view, MenuLateral.class);
+            intent.putExtra("id", usuarioId);
+            System.out.println("EEEEEEEEO "+usuarioId);
+            startActivity(intent);
         }
 
 
@@ -113,9 +114,8 @@ public class Main2Activity extends Activity {
                 client.post("http://vps222360.ovh.net/usuarios/CrearUsuario.php", params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                        Intent intent = new Intent(view, MenuLateral.class);
-                        intent.putExtra("id", usuarioId);
-                        startActivity(intent);
+
+                        System.out.println("EEEEEEO Crearusuario.php bien eh");
                     }
 
                     @Override
@@ -123,7 +123,9 @@ public class Main2Activity extends Activity {
                         System.out.println("EEEEEEEEO "+responseBody);
                     }
                 });
-
+                Intent intent = new Intent(view, MenuLateral.class);
+                intent.putExtra("id", usuarioId);
+                startActivity(intent);
             }
 
             @Override

@@ -39,6 +39,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.lusfold.spinnerloading.SpinnerLoading;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -213,13 +214,16 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
     private void obtenerPosts(String algo){
        
         final Context c = getApplicationContext();
-
+        final SpinnerLoading view = (SpinnerLoading) findViewById(R.id.spinner_loading1);
+        view.setVisibility(View.VISIBLE);
         AsyncHttpClient client =new AsyncHttpClient();
         client.get("http://vps222360.ovh.net/posts/VerPosts.php?category=" + algo, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray result) {
                 adaptadorPosts adapter = new adaptadorPosts(actividad, result, c);
+                view.setVisibility(View.GONE);
                 listaPosts.setAdapter(adapter);
+
             }
         });
     }
