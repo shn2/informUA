@@ -86,12 +86,16 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
         texto=(EditText) findViewById(R.id.TextoNuevoPost);
         enviarpost=(Button) findViewById(R.id.EnviarPost);
         idUsuarioLogeado=getIntent().getExtras().getString("id");
+        final SpinnerLoading view = (SpinnerLoading) findViewById(R.id.spinner_loading1);
+        view.setVisibility(View.GONE);
         enviarpost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 ViewAnimator.animate(postearrel).duration(400).fadeOut().start();
                ViewAnimator.animate(fab).rotation(0).duration(200).start();
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(texto.getWindowToken(), 0);
                 postearrel.setVisibility(View.INVISIBLE);
                 modal.setVisibility(View.VISIBLE);
             }
@@ -103,6 +107,8 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
 
                     ViewAnimator.animate(postearrel).duration(400).fadeOut().start();
                     ViewAnimator.animate(fab).rotation(0).duration(200).start();
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(texto.getWindowToken(), 0);
                     postearrel.setVisibility(View.INVISIBLE);
                 } else {
                     postearrel.setVisibility(View.VISIBLE);
@@ -116,7 +122,9 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
             @Override
             public void onClick(View view) {
                 ViewAnimator.animate(postearrel).duration(400).fadeOut().start();
-                ViewAnimator.animate(fab).rotation(0).duration(20).start();
+                ViewAnimator.animate(fab).rotation(0).duration(20).start();InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(texto.getWindowToken(), 0);
+
                 postearrel.setVisibility(View.INVISIBLE);
             }
         });

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -62,6 +63,8 @@ public class comentarios extends AppCompatActivity {
                 params.put("post",id.toString());
                 params.put("id", idUsuarioLogeado);
                 AsyncHttpClient client =new AsyncHttpClient();
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(textoComentario.getWindowToken(), 0);
                 client.post("http://vps222360.ovh.net/comentarios/CrearComentario.php", params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
