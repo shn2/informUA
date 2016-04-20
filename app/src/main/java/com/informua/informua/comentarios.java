@@ -22,7 +22,7 @@ public class comentarios extends AppCompatActivity {
     ListView listacomentarios;
     TextView textoPost;
     Activity actividad;
-    int idUsuarioLogeado;
+    String idUsuarioLogeado;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +33,7 @@ public class comentarios extends AppCompatActivity {
         actividad = this;
        Long id= getIntent().getExtras().getLong("id");
         String texto=getIntent().getExtras().getString("texto");
-        idUsuarioLogeado=getIntent().getExtras().getInt("idUsuarioLogeado");
+        idUsuarioLogeado=getIntent().getExtras().getString("idUsuarioLogeado");
         listacomentarios=(ListView)findViewById(R.id.listacomentarios);
         obtenerComentarios(id.toString());
         System.out.println("Cuentaaaa " + listacomentarios.getChildCount());

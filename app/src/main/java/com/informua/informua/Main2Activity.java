@@ -34,6 +34,7 @@ public class Main2Activity extends Activity {
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     private Activity view;
+    String usuarioId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         view=this;
@@ -68,18 +69,20 @@ public class Main2Activity extends Activity {
         //Si ya está loggeado en face va a a la actividad 2 directamente
         ///////////////////////////////////////////////////////////////////////////////////////////
         if(AccessToken.getCurrentAccessToken()!=null){
-            final AccessToken accessToken= AccessToken.getCurrentAccessToken();
+             AccessToken accessToken= AccessToken.getCurrentAccessToken();
             System.out.println("EEEEEEEEO "+accessToken.getUserId());
             System.out.println("EEEEEEEEO "+accessToken.getToken());
             AsyncHttpClient client =new AsyncHttpClient();
             RequestParams params= new RequestParams();;
             params.put("id",accessToken.getUserId());
             params.put("token", accessToken.getToken());
+            usuarioId=accessToken.getUserId();
             client.post("http://vps222360.ovh.net/usuarios/CrearUsuario.php", params, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                     Intent intent = new Intent(view, MenuLateral.class);
-                    intent.putExtra("id", accessToken.getUserId());
+                    intent.putExtra("id", usuarioId);
+                    System.out.println("EEEEEEEEO "+usuarioId);
                     startActivity(intent);
 
                 }

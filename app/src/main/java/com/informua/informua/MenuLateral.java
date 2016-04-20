@@ -66,14 +66,15 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
     RelativeLayout modal;
     int intPost=0;
     RelativeLayout postearrel;
-    int idUsuarioLogeado ;
+    String idUsuarioLogeado ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_lateral);
-      //  final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final Context context = getApplicationContext();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -83,18 +84,18 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
         postearrel=(RelativeLayout) findViewById(R.id.postearrel);
         texto=(EditText) findViewById(R.id.TextoNuevoPost);
         enviarpost=(Button) findViewById(R.id.EnviarPost);
-        idUsuarioLogeado=getIntent().getExtras().getInt("id");
+        idUsuarioLogeado=getIntent().getExtras().getString("id");
         enviarpost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 ViewAnimator.animate(postearrel).duration(400).fadeOut().start();
-              //  ViewAnimator.animate(fab).rotation(90).duration(500).start();
+               ViewAnimator.animate(fab).rotation(90).duration(500).start();
                 postearrel.setVisibility(View.INVISIBLE);
                 modal.setVisibility(View.VISIBLE);
             }
         });
-       /* fab.setOnClickListener(new View.OnClickListener() {
+       fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (postearrel.getVisibility() == View.VISIBLE) {
@@ -109,12 +110,12 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
                 }
 
             }
-        });*/
+        });
         postearrel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ViewAnimator.animate(postearrel).duration(400).fadeOut().start();
-            //    ViewAnimator.animate(fab).rotation(90).duration(500).start();
+                ViewAnimator.animate(fab).rotation(90).duration(500).start();
                 postearrel.setVisibility(View.INVISIBLE);
             }
         });
@@ -228,6 +229,8 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
         RequestParams params = new RequestParams();
         params.put("texto", texto.getText());
         params.put("categoria", v.getTag());
+        params.put("creador", idUsuarioLogeado);
+        System.out.println("EEEEEEEEO "+idUsuarioLogeado);
         AsyncHttpClient client =new AsyncHttpClient();
         modal.setVisibility(View.GONE);
         client.post("http://vps222360.ovh.net/posts/CrearPost.php", params, new AsyncHttpResponseHandler() {
