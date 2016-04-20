@@ -72,7 +72,7 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_lateral);
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+      //  final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final Context context = getApplicationContext();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -88,12 +88,12 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
             public void onClick(View view) {
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 ViewAnimator.animate(postearrel).duration(400).fadeOut().start();
-                ViewAnimator.animate(fab).rotation(90).duration(500).start();
+              //  ViewAnimator.animate(fab).rotation(90).duration(500).start();
                 postearrel.setVisibility(View.INVISIBLE);
                 modal.setVisibility(View.VISIBLE);
             }
         });
-        fab.setOnClickListener(new View.OnClickListener() {
+       /* fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (postearrel.getVisibility() == View.VISIBLE) {
@@ -108,12 +108,12 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
                 }
 
             }
-        });
+        });*/
         postearrel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ViewAnimator.animate(postearrel).duration(400).fadeOut().start();
-                ViewAnimator.animate(fab).rotation(90).duration(500).start();
+            //    ViewAnimator.animate(fab).rotation(90).duration(500).start();
                 postearrel.setVisibility(View.INVISIBLE);
             }
         });
@@ -309,3 +309,14 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
 
 
 }
+/*<android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/add"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />*/
