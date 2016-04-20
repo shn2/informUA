@@ -108,11 +108,13 @@ public class Main2Activity extends Activity {
                 AsyncHttpClient client =new AsyncHttpClient();
                 RequestParams params= new RequestParams();;
                 params.put("id",accessToken.getUserId());
+                usuarioId=accessToken.getUserId();
                 params.put("token", accessToken.getToken());
                 client.post("http://vps222360.ovh.net/usuarios/CrearUsuario.php", params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                         Intent intent = new Intent(view, MenuLateral.class);
+                        intent.putExtra("id", usuarioId);
                         startActivity(intent);
                     }
 

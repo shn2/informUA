@@ -90,7 +90,7 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
             public void onClick(View view) {
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 ViewAnimator.animate(postearrel).duration(400).fadeOut().start();
-               ViewAnimator.animate(fab).rotation(90).duration(500).start();
+               ViewAnimator.animate(fab).rotation(0).duration(200).start();
                 postearrel.setVisibility(View.INVISIBLE);
                 modal.setVisibility(View.VISIBLE);
             }
@@ -101,12 +101,12 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
                 if (postearrel.getVisibility() == View.VISIBLE) {
 
                     ViewAnimator.animate(postearrel).duration(400).fadeOut().start();
-                    ViewAnimator.animate(fab).rotation(90).duration(500).start();
+                    ViewAnimator.animate(fab).rotation(0).duration(200).start();
                     postearrel.setVisibility(View.INVISIBLE);
                 } else {
                     postearrel.setVisibility(View.VISIBLE);
                     ViewAnimator.animate(postearrel).duration(400).fadeIn().start();
-                    ViewAnimator.animate(fab).rotation(45).duration(500).start();
+                    ViewAnimator.animate(fab).rotation(45).duration(200).start();
                 }
 
             }
@@ -115,7 +115,7 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
             @Override
             public void onClick(View view) {
                 ViewAnimator.animate(postearrel).duration(400).fadeOut().start();
-                ViewAnimator.animate(fab).rotation(90).duration(500).start();
+                ViewAnimator.animate(fab).rotation(0).duration(20).start();
                 postearrel.setVisibility(View.INVISIBLE);
             }
         });
