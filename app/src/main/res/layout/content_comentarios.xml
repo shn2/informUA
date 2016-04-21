@@ -60,13 +60,19 @@
             android:layout_alignParentLeft="true"
             android:hint="Escribe tu comentario" />
 
-        <Button
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="40dp"
             android:id="@+id/EnviarComentario"
-            android:layout_alignParentBottom="false"
             android:layout_alignParentRight="true"
-            android:text=">" />
+            android:layout_alignParentTop="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="false"
+            android:layout_marginRight="15dp"
+            android:background="@android:drawable/ic_menu_send"
+            android:backgroundTint="#515151"
+            android:adjustViewBounds="false" />
 
     </RelativeLayout>
     <com.lusfold.spinnerloading.SpinnerLoading

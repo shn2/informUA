@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,7 +32,7 @@ public class comentarios extends AppCompatActivity {
     TextView textoPost;
     Activity actividad;
     String idUsuarioLogeado;
-    Button enviarComentario;
+    ImageButton enviarComentario;
     EditText textoComentario;
     Long id;
     String texto;
@@ -50,7 +51,7 @@ public class comentarios extends AppCompatActivity {
         obtenerComentarios(id.toString());
         System.out.println("Cuentaaaa " + listacomentarios.getChildCount());
         textoPost.setText(texto);
-        enviarComentario = (Button) findViewById(R.id.EnviarComentario);
+        enviarComentario = (ImageButton) findViewById(R.id.EnviarComentario);
         textoComentario=(EditText) findViewById(R.id.TextoEnviarComentario);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
