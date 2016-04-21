@@ -29,7 +29,10 @@
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listacomentarios" />
+            android:id="@+id/listacomentarios"
+            android:headerDividersEnabled="false"
+            android:dividerHeight="0dp"
+            android:divider="#00ffffff" />
 
     </LinearLayout>
 
