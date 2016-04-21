@@ -140,44 +140,46 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
-                final TextView v2 = ((TextView)((ViewGroup)((ViewGroup) (((ViewGroup) ((ViewGroup) arg1).getChildAt(0)).getChildAt(0))).getChildAt(2)).getChildAt(0));
+                if(pos!=0) {
 
-                String c = v2.getText().toString();
-                int caca = Integer.parseInt(c) + 1;
-                String cacas = "" + caca;
-                SmallBang mSmallBang = SmallBang.attach2Window(actividad);
-                mSmallBang.bang(v2);
-                v2.setText(cacas);
+                    final TextView v2 = ((TextView) ((ViewGroup) ((ViewGroup) (((ViewGroup) ((ViewGroup) arg1).getChildAt(0)).getChildAt(0))).getChildAt(2)).getChildAt(0));
 
-                final View v = ((ViewGroup) ((ViewGroup) arg1).getChildAt(0)).getChildAt(1);
-                final String idPost = v.getTag().toString();
-                v.setVisibility(View.VISIBLE);
-                mSmallBang.bang(v, 180, new SmallBangListener() {
-                    @Override
-                    public void onAnimationStart() {
-                        v.setVisibility(View.VISIBLE);
-                    }
+                    String c = v2.getText().toString();
+                    int caca = Integer.parseInt(c) + 1;
+                    String cacas = "" + caca;
+                    SmallBang mSmallBang = SmallBang.attach2Window(actividad);
+                    mSmallBang.bang(v2);
+                    v2.setText(cacas);
 
-                    @Override
-                    public void onAnimationEnd() {
-                        v.setVisibility(View.INVISIBLE);
-                        AsyncHttpClient client = new AsyncHttpClient();
-                        client.get("http://vps222360.ovh.net/posts/Megusta.php?id=" + idPost, null, new AsyncHttpResponseHandler() {
+                    final View v = ((ViewGroup) ((ViewGroup) arg1).getChildAt(0)).getChildAt(1);
+                    final String idPost = v.getTag().toString();
+                    v.setVisibility(View.VISIBLE);
+                    mSmallBang.bang(v, 180, new SmallBangListener() {
+                        @Override
+                        public void onAnimationStart() {
+                            v.setVisibility(View.VISIBLE);
+                        }
 
-                                    @Override
-                                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                        @Override
+                        public void onAnimationEnd() {
+                            v.setVisibility(View.INVISIBLE);
+                            AsyncHttpClient client = new AsyncHttpClient();
+                            client.get("http://vps222360.ovh.net/posts/Megusta.php?id=" + idPost, null, new AsyncHttpResponseHandler() {
+
+                                        @Override
+                                        public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                                        }
+
+                                        @Override
+                                        public void onFailure(int statusCode, Header[] headers,
+                                                              byte[] responseBody, Throwable error) {
+                                        }
                                     }
 
-                                    @Override
-                                    public void onFailure(int statusCode, Header[] headers,
-                                                          byte[] responseBody, Throwable error) {
-                                    }
-                                }
-
-                        );
-                    }
-                });
-                return true;
+                            );
+                        }
+                    });
+                }return true;
             }
         });
 
@@ -204,22 +206,24 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
         AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               System.out.println("EEEEEEEEEE: " + position);
+                if(position!=0) {
+                    final TextView v2 = ((TextView) (((ViewGroup) (((ViewGroup) ((ViewGroup) view).getChildAt(0)).getChildAt(0))).getChildAt(1)));
 
-                final TextView v2 = ((TextView)(((ViewGroup) (((ViewGroup) ((ViewGroup) view).getChildAt(0)).getChildAt(0))).getChildAt(1)));
 
-
-                System.out.println("holaaaaa");
-                Intent intent = new Intent(actividad, comentarios.class);
-                intent.putExtra("id", id);
-                intent.putExtra("texto",v2.getText());
-                intent.putExtra("idUsuarioLogeado",idUsuarioLogeado);
-                startActivity(intent);
+                    System.out.println("holaaaaa");
+                    Intent intent = new Intent(actividad, comentarios.class);
+                    intent.putExtra("id", id);
+                    intent.putExtra("texto", v2.getText());
+                    intent.putExtra("idUsuarioLogeado", idUsuarioLogeado);
+                    startActivity(intent);
+                }
             }
         };
         listaPosts.setOnItemClickListener(listener);
     }
 
-    private void obtenerPosts(String algo){
+    private void obtenerPosts(final String algo){
        
         final Context c = getApplicationContext();
         final SpinnerLoading view = (SpinnerLoading) findViewById(R.id.spinner_loading1);
@@ -228,9 +232,11 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
         client.get("http://vps222360.ovh.net/posts/VerPosts.php?category=" + algo, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray result) {
-                adaptadorPosts adapter = new adaptadorPosts(actividad, result, c);
+                adaptadorPosts adapter = new adaptadorPosts(actividad, result, c, algo);
                 view.setVisibility(View.GONE);
                 listaPosts.setAdapter(adapter);
+               // listaPosts.addHeaderView(new TextView(actividad));
+              //  ((TextView) listaPosts.getItemAtPosition(0)).setText("Others");
 
             }
         });
@@ -303,20 +309,35 @@ public class MenuLateral extends AppCompatActivity implements NavigationView.OnN
 
         if (id == R.id.nav_all) {
             obtenerPosts("all");
+          //  ((TextView) listaPosts.getItemAtPosition(0)).setText("Todos los posts");
+
         } else if (id == R.id.nav_sports) {
             obtenerPosts("sports");
+          //  ((TextView) listaPosts.getItemAtPosition(0)).setText("Deportes");
         } else if (id == R.id.nav_love) {
             obtenerPosts("love");
+          //  ((TextView) listaPosts.getItemAtPosition(0)).setText("Love");
+
         } else if (id == R.id.nav_party) {
             obtenerPosts("party");
+            //((TextView) listaPosts.getItemAtPosition(0)).setText("Party");
+
         } else if (id == R.id.nav_study) {
             obtenerPosts("study");
+            //((TextView) listaPosts.getItemAtPosition(0)).setText("Study");
+
         } else if (id == R.id.nav_music) {
             obtenerPosts("music");
+          //  ((TextView) listaPosts.getItemAtPosition(0)).setText("Music");
+
         } else if (id == R.id.nav_games) {
             obtenerPosts("games");
+            //((TextView) listaPosts.getItemAtPosition(0)).setText("Games");
+
         } else if (id == R.id.nav_others) {
             obtenerPosts("others");
+
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

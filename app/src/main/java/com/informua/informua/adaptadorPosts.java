@@ -33,11 +33,13 @@ public class adaptadorPosts extends BaseAdapter{
     private final Activity context;
     private final JSONArray resultado;
     private  final Context c;
+    private String categoria;
     //final Context context = getApplicationContext();
-    public adaptadorPosts(Activity context, JSONArray resultado,  Context c) {
+    public adaptadorPosts(Activity context, JSONArray resultado,  Context c, String categoria) {
         this.context=context;
         this.resultado=resultado;
         this.c=c;
+        this.categoria=categoria;
     }
 
     @Override
@@ -79,7 +81,7 @@ public class adaptadorPosts extends BaseAdapter{
     public View getView(int position,View view,ViewGroup parent) {
         if (position == 0) {
             TextView t = new TextView(context);
-            t.setText("Todos los posts");
+            t.setText(categoria + " posts");
             t.setTextSize(15);
             t.setPadding(10,20,10,15);
             return t;
